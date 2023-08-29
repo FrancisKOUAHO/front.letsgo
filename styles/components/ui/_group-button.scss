@@ -1,0 +1,10 @@
+@use '../../settings/' as *;
+
+.c-group-button {
+	overflow-x: hidden;
+  display: flex;
+
+  &__inside {
+    @include flex($align: center, $column-gap: 12px, $row-gap: 12px);
+  }
+}

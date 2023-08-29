@@ -1,0 +1,38 @@
+@use '../../settings' as *;
+
+.c-button {
+	padding: 12px 40px;
+	min-width: 140px;
+	min-height: 46px;
+	border-radius: 8px;
+	border-width: 2px;
+	border-style: solid;
+	font-weight: 600;
+	cursor: pointer;
+	line-height: 1.5;
+	$colors: 'primary' $primary-color, 'secondary' $secondary-color,
+		'white' #ffffff, 'grey-light' $grey-color-7;
+	$sizes: 'x3-small' $x3-small;
+
+	@each $label, $color, $size in $colors {
+		&--#{$label} {
+			color: $color;
+			border-color: $color;
+			transition: all 0.15s ease-in-out;
+
+			&.--is-active {
+				color: testLightness($color);
+				background-color: $color;
+			}
+
+			&:hover {
+				color: testLightness($color);
+				background-color: lighten($color, 2%);
+			}
+		}
+	}
+
+	@media screen and (max-width: 480px) {
+		padding: 12px 24px;
+	}
+}

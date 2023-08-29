@@ -1,0 +1,62 @@
+/* Variables globals colors */
+$primary-color : #4376FF;
+$secondary-color : #484848;
+$tertiary-color : #000000;
+$main-color : #FFFFFF;
+$primary-background-color : #E5E5E5;
+$secondary-background-color : #EFF0F2;
+$light-grey-color : #C2C6CC;
+$medium-grey-color : #9A9A9A;
+$grey-color : #D9D9D9;
+$grey-color-2 : #E0E0E0;
+$grey-color-3 : #666666;
+$grey-color-4 : #B8B8B8;
+$grey-color-5 : #E0E2E6;
+$grey-color-6 : #F5F5F5;
+$grey-color-7 :#E8EAEC;
+$border-color : #5787A4;
+$primary-paypal-color : #253B80;
+$secondary-paypal-color : #179BD7;
+$tertiary-paypal-color : #222D65;
+$main-visa-color : #172B85;
+$main-stripe-color : #6461FC;
+$primary-mastercard-color : #ED0006;
+$secondary-mastercard-color : #F9A000;
+$primary-discovery-color : #000000;
+$secondary-discovery-color : #FD6020;
+$main-googlepay-color : #3C4043;
+
+/* Variables globals texts colors */
+$primary-text-color : #4376FF;
+$secondary-text-color : #484848;
+$tertiary-text-color : #000000;
+$text-blue-dark-color : #2955CB;
+$text-blue-light-color : #4376FF;
+$text-grey-light-color : #9A9A9A;
+$text-grey-extra-light-color : #979797;
+
+/* Variables globals fonts text */
+$primary-fonts : "Montserrat", sans-serif;
+$secondary-fonts: "Poppins", sans-serif;
+
+/* Size text */
+$x3-small: 12px;
+$x2-small: 13px;
+$x-small: 14px;
+$small : 15px;
+$medium: 16px;
+$x2-medium: 18px;
+$large: 20px;
+$x-large: 22px;
+$x2-large: 24px;
+$x3-large: 28px;
+$x4-large: 32px;
+$x5-large: 35px;
+$x6-large: 36px;
+$x7-large: 48px;
+$x8-large: 60px;
+
+/* Responsive breakpoints */
+$desktop: (min-width: 1024px);
+$tablet: (min-width: 768px) and (max-width: 1023px);
+$mobile: (max-width: 767px);

@@ -1,0 +1,10 @@
+@use '../../../settings/' as *;
+
+.c-share-icon {
+  width: 28px;
+  height: 28px;
+
+  path {
+    stroke-width: 2px;
+  }
+}

@@ -1,0 +1,9 @@
+.react-tel-input {
+	margin-top: 20px;
+
+	& > input {
+		width: 100% !important;
+		padding: 23px !important;
+		padding-left: 50px !important;
+	}
+}

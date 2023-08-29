@@ -1,0 +1,17 @@
+.c-date-selector {
+  display: flex;
+  gap: 8px;
+
+  > * {
+    flex: 1;
+    min-width: 40px;
+
+    &.--is-today {
+      min-width: 70px;
+    }
+
+    &:last-child {
+      min-width: 85px;
+    }
+  }
+}

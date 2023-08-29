@@ -1,0 +1,12 @@
+.c-review {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+
+	& > hr {
+		width: 135px;
+		height: 4px;
+		border-radius: 10px;
+		background: #9a9a9a;
+	}
+}

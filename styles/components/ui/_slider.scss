@@ -1,0 +1,32 @@
+@use '../../settings/' as *;
+
+.c-slider {
+  &__navigation {
+    display: flex;
+    justify-content: flex-end;
+    column-gap: 8px;
+
+    &__button {
+      border-radius: 9999px;
+      padding: 8px;
+      display: inline-block;
+      color: #FFFFFF;
+      background-color: $primary-color;
+
+      &.swiper-button-disabled {
+        background-color: $secondary-color;
+        cursor: normal;
+      }
+
+      > i {
+        font-size: 20px;
+        display: block;
+      }
+    }
+  }
+
+  .slider {
+    margin-top: 20px;
+    height: 340px;
+  }
+}

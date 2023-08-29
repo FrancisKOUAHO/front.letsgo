@@ -1,0 +1,124 @@
+@use '../../settings/' as *;
+
+.c-eventcard {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: -1px 4px 8px 0 rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  overflow: hidden;
+  flex: 1 0 auto;
+  border-radius: 8px;
+  @include flex($align: flex-end);
+  background-size: cover;
+  background-position: center;
+  color: #ffffff;
+
+  &__image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    object-fit: cover;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgb(11 11 11 / 0%) 41.36%, #000000 93%);
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  &__like {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+  }
+
+  .content {
+    position: relative;
+    display: flex;
+    column-gap: 10px;
+    flex: 1;
+
+    &__block {
+      &--left {
+        flex: 1 1 auto;
+      }
+
+      &--right {
+        flex: 0 0 auto;
+        @include flex($dir: column, $align: center, $justify: flex-end);
+      }
+    }
+
+    &__logo {
+      display: block;
+      border-radius: 9999px;
+      width: 54px;
+      height: 54px;
+      padding: 16px;
+      margin-bottom: 26px;
+      background-color: rgba(255, 255, 255, 0.3);
+      box-shadow: -1px 4px 8px 0 rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+
+      > img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        //filter: brightness(0) invert(1);
+      }
+    }
+
+    &__title {
+      font-size: 18px;
+      font-weight: 700;
+      // display: inline-block;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    &__description {
+      font-size: 14px;
+      font-weight: 400;
+      display: inline-block;
+      margin-top: 14px;
+    }
+
+    &__pin {
+      font-size: 20px;
+    }
+
+    &__distance {
+      font-size: 14px;
+      font-weight: 400;
+      margin-top: 14px;
+    }
+  }
+}

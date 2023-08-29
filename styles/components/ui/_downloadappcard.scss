@@ -1,0 +1,29 @@
+@use '../../settings/' as *;
+
+.c-downloadappcard {
+  position: relative;
+  border-radius: 8px;
+  @include flex($dir: column, $justify: center);
+  background-size: cover;
+  background-position: center;
+  color: #FFFFFF;
+
+  &__content {
+    max-width: 420px;
+    position: relative;
+    z-index: 1
+  }
+
+  &__side-image {
+    position: absolute;
+    right: 0;
+    top: -50px;
+    bottom: -50px;
+    transform: translateX(120px);
+    z-index: 0;
+
+    @media screen and (max-width: 767px) {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+@use '../../../settings/' as *;
+
+.c-heart-icon {
+  width: 28px;
+  height: 28px;
+
+  path {
+    stroke-width: 2px;
+  }
+
+  &.is-active {
+    fill: $primary-color;
+  }
+}

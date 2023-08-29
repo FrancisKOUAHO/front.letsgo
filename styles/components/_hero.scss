@@ -1,0 +1,30 @@
+.c-hero {
+  position: relative;
+  background-image: url(../../public/img/header-party.jpg);
+  background-size: cover;
+  background-position: center;
+  min-height: 650px;
+  padding-top: 240px;
+  padding-bottom: 60px;
+  color: #FFFFFF;
+
+  &::before {
+    position: absolute;
+    content: '';
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(181.37deg, rgba(217, 217, 217, 0) 21.07%, #000000 105.47%);
+    pointer-events: none;
+  }
+
+  &__content {
+    position: relative;
+    margin: 0 auto;
+    padding: 0 20px;
+    max-width: 800px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}

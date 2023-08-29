@@ -1,0 +1,77 @@
+@use '../../settings' as *;
+
+.c-searchbox {
+  position: relative;
+  height: 70px;
+  padding: 8px;
+  background: white;
+  border-radius: 9999px;
+  display: flex;
+  column-gap: 12px;
+
+  .btn-menu {
+    &__wrapper {
+      width: 54px;
+      height: 54px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      & > i {
+        color: $primary-color;
+      }
+    }
+  }
+
+  .search {
+    position: relative;
+    padding-left: 8px;
+    flex: 1;
+    @include flex($justify: center, $dir: column);
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 2px;
+      border-radius: 9999px;
+      height: 40px;
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &__subtitle {
+      color: #000000;
+      font-size: 14px;
+    }
+
+    &__input {
+      color: #000000;
+
+      &:focus {
+        outline: 0;
+      }
+    }
+  }
+
+  .btn-search {
+    &__wrapper {
+      background-color: $primary-color;
+      border-radius: 9999px;
+      width: 54px;
+      height: 54px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  
+      & > i {
+        color: #ffffff;
+      }
+    }
+  }
+}

@@ -1,0 +1,84 @@
+@use '../../settings/' as *;
+
+.container {
+	text-align: center;
+
+	.progress-wrap {
+		max-width: 100%;
+		margin-bottom: 40px;
+		position: relative;
+
+		display: flex;
+		justify-content: space-between;
+
+		&::before {
+			content: '';
+			width: 100%;
+			height: 4px;
+
+			position: absolute;
+			top: 50%;
+			left: 0;
+			transform: translateY(-50%);
+			z-index: -1;
+			transition: 0.3s ease-in-out;
+			background-color: #e6e6e6;
+		}
+
+		.progress {
+			width: 0;
+			height: 4px;
+
+			position: absolute;
+			top: 50%;
+			left: 0;
+			transform: translateY(-50%);
+			z-index: -1;
+			transition: 0.3s ease-in-out;
+			background-color: #4376ff;
+		}
+
+		.step {
+			width: 40px;
+			height: 40px;
+			font-weight: bold;
+
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #333;
+			background-color: #fff;
+			border: 3px solid #e6e6e6;
+			border-radius: 50%;
+			transition: 0.3s ease-in-out;
+		}
+
+		.active {
+			border-color: #4376ff;
+		}
+	}
+
+	.btn {
+		margin: 10px;
+		padding: 8px 30px;
+
+		font-size: 14px;
+		color: #fff;
+		background-color: #4376ff;
+		border-radius: 10px;
+		border: 0;
+		cursor: pointer;
+		transition: transform 0.2s ease-in-out;
+		outline: none;
+
+		&:active {
+			transform: scale(0.96);
+		}
+
+		&:disabled {
+			color: #666;
+			background-color: #e6e6e6;
+			cursor: not-allowed;
+		}
+	}
+}

@@ -1,0 +1,16 @@
+@use '../../settings/' as *;
+
+.c-review-card {
+	display: flex;
+	flex-direction: column;
+	width: 336px;
+	border-radius: 5px;
+	padding: 10px;
+	border: 1px solid black;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+
+	& > img {
+		height: 189px;
+		object-fit: fill;
+	}
+}

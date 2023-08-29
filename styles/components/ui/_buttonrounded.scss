@@ -1,0 +1,25 @@
+@use '../../settings/' as *;
+
+.c-buttonrounded-navigation {
+	border-radius: 9999px;
+	padding: 8px;
+	display: inline-block;
+	color: #ffffff;
+	background-color: $primary-color;
+	$colors: 'primary' $primary-color, 'secondary' $secondary-color,
+		'white' #ffffff, 'grey-light' $grey-color-7;
+	$sizes: 'x3-small' $x3-small;
+
+	@each $label, $color, $size in $colors {
+		&--#{$label} {
+			color: $color;
+			border-color: $color;
+			transition: all 0.15s ease-in-out;
+
+			&.--is-active {
+				color: testLightness($color);
+				background-color: $color;
+			}
+		}
+	}
+}

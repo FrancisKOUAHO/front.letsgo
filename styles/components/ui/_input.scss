@@ -1,0 +1,33 @@
+@use '../../settings/' as *;
+
+.input {
+	position: relative;
+	padding: 16px;
+	height: 60px;
+	flex: 1 1 180px;
+	outline: none;
+	border-radius: 8px;
+	border: 1px solid #c2c6cc;
+	@include flex($justify: center, $dir: column);
+
+	&:focus {
+		outline: none;
+		border: none;
+	}
+
+	&__subtitle {
+		color: #9a9a9a;
+		font-size: 12px;
+		margin-bottom: 5px;
+	}
+
+	&__input {
+		width: 100%;
+		margin-bottom: 15px;
+		color: #000000;
+
+		&::placeholder {
+			color: #000000;
+		}
+	}
+}

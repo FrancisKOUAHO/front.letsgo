@@ -1,0 +1,44 @@
+@use '../settings/' as *;
+
+.c-main-nav {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right: 0;
+  @include flex($justify: space-between, $align: center, $column-gap: 30px);
+  color: #fff;
+
+  &__logo {
+    font-weight: 900;
+    font-size: clamp(24px, 4vw, 35px);
+    flex-shrink: 0;
+  }
+
+  > nav {
+    display: flex;
+    align-items: center;
+    column-gap: 30px;
+
+    > ul {
+      display: flex;
+      column-gap: 30px;
+
+      > li {
+        display: flex;
+        align-items: center;
+
+        &.hide-small {
+          @media screen and (max-width: 640px) {
+            display: none;
+          }
+        }
+
+        &.hide-small-xs {
+          @media screen and (max-width: 400px) {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
