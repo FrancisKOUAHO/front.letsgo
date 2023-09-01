@@ -9,9 +9,6 @@
     "deploy:prod": "yarn build && pm2 start ecosystem.config.js --env prod",
     "lint": "eslint --ext .ts,.tsx"
   },
-  "env_production": {
-    "NODE_ENV": "production"
-  },
   "dependencies": {
     "@headlessui/react": "^1.7.3",
     "@sentry/nextjs": "^7.40.0",
@@ -31,6 +28,7 @@
     "autoprefixer": "^10.4.12",
     "axios": "^1.1.3",
     "clsx": "^1.2.1",
+    "dotenv": "^16.3.1",
     "eslint": "^8.31.0",
     "eslint-config-next": "^13.1.2",
     "eslint-config-standard": "^17.0.0",

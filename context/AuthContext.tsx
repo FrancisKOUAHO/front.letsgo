@@ -63,9 +63,10 @@ export const AuthContextProvider = ({children}: { children: ReactNode }) => {
         }
   };
   const register = async (email: File | string, password: File | string) => {
-    const { data: response } = await api.post('auth/register', {
-      email,
-      password,
+    const { data: response } = await api.post('auth/register', {email, password }, {
+        headers: {
+            'Content-Type': 'application/json',
+        }
     });
 
     return response.data;

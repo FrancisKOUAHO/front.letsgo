@@ -9,7 +9,7 @@ import { GrFormClose } from "react-icons/gr";
 import Link from "next/link";
 
 const Login: FunctionComponent<any> = ({ isOpen, closeModal }) => {
-	const { login } = useAuth();
+	const { login, register } = useAuth();
   const [isConnection, setIsConnection] = useState(true);
 
 	const handleSubmit = (event: any) => {
@@ -19,6 +19,14 @@ const Login: FunctionComponent<any> = ({ isOpen, closeModal }) => {
 		login(values.email, values.password);
 		closeModal();
 	};
+
+    const handleRegister = (event: any) => {
+        event.preventDefault();
+        const form = event.currentTarget;
+        const values = Object.fromEntries(new FormData(form));
+        register(values.email, values.password);
+        closeModal();
+    };
 
 	return (
 		<Transition appear show={isOpen} as={Fragment}>
@@ -114,7 +122,7 @@ const Login: FunctionComponent<any> = ({ isOpen, closeModal }) => {
                     </div>
                   </form>
                 ) : (
-                  <form onSubmit={handleSubmit}>
+                  <form onSubmit={handleRegister}>
                     <div className="mt-6">
                       <Input
                         label={'Nom complet'}
