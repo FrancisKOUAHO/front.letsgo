@@ -3,9 +3,8 @@ import NavBar from "./NavBar";
 import { FunctionComponent } from "react";
 import HeaderProps from "../../types/HeaderProps";
 
-const Header: FunctionComponent<HeaderProps> = ({
-                                                  customStyle
-                                                }) => {
+const Header: FunctionComponent<HeaderProps> = ({customStyle}) => {
+
   return (
     <header className='c-main-nav o-container' style={customStyle}>
       <h1 className='c-main-nav__logo'>

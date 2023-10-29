@@ -1,19 +1,19 @@
-import {NextPage} from 'next';
 import Dropdown from '../ui/Dropdown';
 import Button from '../ui/Button';
-import {useState} from 'react';
+import {FunctionComponent, useState} from 'react';
 import Login from '../form/Login';
 import {useAuth} from '../../context/AuthContext';
 
-const NavBar: NextPage = () => {
+const NavBar: FunctionComponent = () => {
     const {user, logout} = useAuth();
+
     let [isOpen, setIsOpen] = useState(false);
 
-    function closeModal() {
+    const closeModal = () => {
         setIsOpen(false);
     }
 
-    function openModal() {
+    const openModal = () => {
         setIsOpen(true);
     }
 
