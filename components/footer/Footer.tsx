@@ -1,7 +1,8 @@
 import { NextPage } from 'next';
 import Link from "next/link";
+import {FunctionComponent} from "react";
 
-const Footer: NextPage = () => {
+const Footer: FunctionComponent = () => {
   const footerList = [
     {
       title: 'Société',
