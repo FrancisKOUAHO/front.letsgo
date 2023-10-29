@@ -1,7 +1,7 @@
-import { NextPage } from 'next'
 import { Triangle } from 'react-loader-spinner'
+import {FunctionComponent} from "react";
 
-const LoadingSpinner: NextPage = () => {
+const LoadingSpinner: FunctionComponent = () => {
 	return (
 		<Triangle
       height='80'

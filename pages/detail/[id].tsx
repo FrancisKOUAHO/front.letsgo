@@ -1,5 +1,4 @@
-import {NextPage} from 'next';
-import {useEffect, useState} from 'react';
+import {FunctionComponent, useEffect, useState} from 'react';
 import DatePickerButton from '../../components/ui/DatePickerButton';
 import GoogleMapReact from 'google-map-react';
 import EventCard from '../../components/ui/EventCard';
@@ -20,10 +19,10 @@ type DayProps = {
   date: Date;
 };
 
-const AnyReactComponent = ({text}: any) => <div><img src={text} alt="marker localication" width={25}/></div>;
+const AnyReactComponent: FunctionComponent = ({text}: any) => <div><img src={text} alt="marker localication" width={25}/></div>;
 
 
-const Index: NextPage = () => {
+const Index: FunctionComponent = () => {
   const router = useRouter();
   const {id} = router.query
 
@@ -106,6 +105,8 @@ const Index: NextPage = () => {
 
   }, [data, id, availableDays]);
 
+  // @ts-ignore
+  // @ts-ignore
   return (
     <Layout title={'detail'}>
       <>

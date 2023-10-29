@@ -47,7 +47,7 @@
     "postcss": "^8.4.18",
     "prettier": "^2.7.1",
     "react": "18.2.0",
-    "react-calendar": "^3.9.0",
+    "react-calendar": "^4.6.1",
     "react-contact-number-input": "^1.1.1",
     "react-dom": "18.2.0",
     "react-draggable": "^4.4.5",
