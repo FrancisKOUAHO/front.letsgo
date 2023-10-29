@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {FunctionComponent, useState} from 'react';
 import ProfileDetail from '../../../components/profile/ProfileDetail';
 import ProfileNotification from '../../../components/profile/ProfileNotifications';
 import ProfilePassword from '../../../components/profile/ProfilePassword';
@@ -6,7 +6,7 @@ import ProfileBillingAdress from '../../../components/profile/ProfileBillingAdre
 import Button from '../../../components/ui/Button';
 import Layout from '../../../layout/Layout';
 
-const Profile = () => {
+const Profile: FunctionComponent = () => {
 	const [step, setStep] = useState(1);
 	const [data, setData] = useState({
 		firstName: '',
