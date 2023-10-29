@@ -19,10 +19,10 @@ type DayProps = {
   date: Date;
 };
 
-const AnyReactComponent: FunctionComponent = ({text}: any) => <div><img src={text} alt="marker localication" width={25}/></div>;
+const AnyReactComponent: FunctionComponent<any> = ({text}: any) => <><img src={text} alt="marker localication" width={25}/></>;
 
 
-const Index: FunctionComponent = () => {
+const Index: FunctionComponent<any> = () => {
   const router = useRouter();
   const {id} = router.query
 
@@ -267,7 +267,7 @@ const Index: FunctionComponent = () => {
                     bodyOpenClassName={'has-modal-open'}
                     closeTimeoutMS={80}
                   >
-                    <Calendar
+                   {/* <Calendar
                       initialDate={new Date(selectedDate)}
                       availableDays={availableDays}
                       onHideModal={() => setIsShowModal(false)}
@@ -275,7 +275,7 @@ const Index: FunctionComponent = () => {
                         setSelectedDays(getSelectedDays(value));
                         setSelectedDate(value.setHours(0, 0, 0, 0));
                       }}
-                    />
+                    />*/}
                   </ReactModal>
                 </div>
               </section>
@@ -300,11 +300,11 @@ const Index: FunctionComponent = () => {
                       }}
                       defaultZoom={15}
                     >
-                      <AnyReactComponent
+                     {/* <AnyReactComponent
                         lat={data.latitude}
                         lng={data.longitude}
                         text="/marker.png"
-                      />
+                      />*/}
                     </GoogleMapReact>
                   </div>
                 </div>
