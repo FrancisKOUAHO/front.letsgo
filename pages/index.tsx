@@ -19,7 +19,6 @@ const Accueil: NextPage = () => {
   const fetchOneActivity = async () => {
     try {
       const res = await api.get(`publications/pubOne/0ff67922-04cd-4640-810b-c7cf5e35ccc0`);
-      console.log('Response:', res);
       setActivities(res.data);
     } catch (error) {
       console.error('Error:', error);

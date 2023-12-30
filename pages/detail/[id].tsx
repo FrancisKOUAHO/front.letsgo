@@ -111,9 +111,6 @@ const Index: FunctionComponent<any> = () => {
 
     }, [data, id, availableDays]);
 
-    console.log('selectedDays', selectedDays)
-    console.log('selectedDate', selectedDate)
-
     return (
         <Layout title={'detail'}>
             <>

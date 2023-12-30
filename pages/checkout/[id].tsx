@@ -142,7 +142,6 @@ const Checkout = () => {
       }
 
     } catch (e: any) {
-      console.log('z', e)
       setError(true);
       toast('Désolé, votre paiement n\'a pas pu être traité pour le moment. Veuillez vérifier les détails de votre carte et réessayer ultérieurement.', {
         position: toast.POSITION.BOTTOM_CENTER,
