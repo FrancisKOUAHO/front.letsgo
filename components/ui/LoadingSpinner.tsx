@@ -1,9 +1,9 @@
-import { Triangle } from 'react-loader-spinner'
+import { LineWave } from 'react-loader-spinner'
 import {FunctionComponent} from "react";
 
 const LoadingSpinner: FunctionComponent = () => {
 	return (
-		<Triangle
+		<LineWave
       height='80'
       width='80'
       wrapperClass='c-loading-spinner'
