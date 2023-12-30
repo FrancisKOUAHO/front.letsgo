@@ -83,18 +83,18 @@ const Custom: FunctionComponent<CustomProps> = ({children}) => {
                     </form>
 
                     <div className="c-group-button mt-8" ref={themeGroupRef}>
-                        {/* <Draggable
-              axis="x"
-              handle=".js-drag"
-              defaultPosition={{x: 0, y: 0}}
-              scale={1}
-              bounds={{left: offsetTranslate, right: 0}}
-              disabled={!hasDragLoaded}
-            >
-              <div className='c-group-button__inside js-drag' ref={dragWrapperRef}>
-                <Categorie/>
-              </div>
-            </Draggable>*/}
+                        <Draggable
+                            axis="x"
+                            handle=".js-drag"
+                            defaultPosition={{x: 0, y: 0}}
+                            scale={1}
+                            bounds={{left: offsetTranslate, right: 0}}
+                            disabled={!hasDragLoaded}
+                        >
+                            <div className='c-group-button__inside js-drag' ref={dragWrapperRef}>
+                                <Categorie/>
+                            </div>
+                        </Draggable>
                     </div>
                 </div>
             </div>

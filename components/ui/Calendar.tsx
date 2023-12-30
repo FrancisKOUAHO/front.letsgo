@@ -3,7 +3,7 @@ import CalendarProps from '../../types/CalendarProps'
 import ReactCalendar from 'react-calendar'
 import {getDateShort} from '../../utils/dates'
 
-const Calendar: FunctionComponent<CalendarProps | any> = ({
+const Calendar: FunctionComponent<CalendarProps> = ({
                                                         initialDate = new Date(),
                                                         availableDays = [],
                                                         onHideModal,
