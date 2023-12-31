@@ -57,27 +57,27 @@ const Custom: FunctionComponent<CustomProps> = ({children}) => {
                     <form onSubmit={handleSubmit}>
                         <div className="c-searchbox mt-10">
                             <button className="btn-menu" onClick={fetchGeolocation} type={'button'}>
-                <span className="btn-menu__wrapper">
-                 <i className="ri-map-pin-fill ri-xl"></i>
-                </span>
+                                <span className="btn-menu__wrapper">
+                                 <i className="ri-map-pin-fill ri-xl"></i>
+                                </span>
                             </button>
                             <div className="search">
-                <span className="search__subtitle mb-[5px]">
-                 {geolocation && geolocation !== '' ? geolocation.localisation : 'Localisation'}
-                </span>
-                                <input
-                                    className="search__input"
-                                    type="text"
-                                    placeholder="Rechercher des activites"
-                                    name="search"
-                                    data-lpignore="true"
-                                    size={1}
-                                />
+                                <span className="search__subtitle mb-[5px]">
+                                 {geolocation && geolocation !== '' ? geolocation.localisation : 'Localisation'}
+                                </span>
+                                    <input
+                                        className="search__input"
+                                        type="text"
+                                        placeholder="Rechercher des activites"
+                                        name="search"
+                                        data-lpignore="true"
+                                        size={1}
+                                    />
                             </div>
                             <button className="btn-search">
-                <span className="btn-search__wrapper">
-                 <i className="ri-search-line ri-xl"></i>
-                </span>
+                                <span className="btn-search__wrapper">
+                                 <i className="ri-search-line ri-xl"></i>
+                                </span>
                             </button>
                         </div>
                     </form>
