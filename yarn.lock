@@ -1039,12 +1039,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.0.6":
-  version: 18.0.6
-  resolution: "@types/react-dom@npm:18.0.6"
+"@types/react-dom@npm:^18.2.18":
+  version: 18.2.18
+  resolution: "@types/react-dom@npm:18.2.18"
   dependencies:
     "@types/react": "npm:*"
-  checksum: 8ea6e001b741cced20781b3e5e8704c2597815adf1dc22d6b4d24616f24db93364a7163543cb0690082201a351cbfcb6bb0f8ce44ee5ad76ccabacbfe0fb2dd3
+  checksum: 74dba11a1b8156f3a763f3fca1fb4ec1dcd349153279b8bf79210024a69f994bf2cf0728198c047f8130c5318420ea56281b0a4ef84c8ae943cd9a0cac705220
   languageName: node
   linkType: hard
 
@@ -1086,14 +1086,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.0.21":
-  version: 18.0.21
-  resolution: "@types/react@npm:18.0.21"
+"@types/react@npm:^18.2.47":
+  version: 18.2.47
+  resolution: "@types/react@npm:18.2.47"
   dependencies:
     "@types/prop-types": "npm:*"
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: cfe65f3291a62c86b342935df70943c222a4a70b3c74bfb45c1acb7bec47a583c9832b4628313baf0c312447c08baa6353a6f39313b0624b6eb7c1251cf5a0a0
+  checksum: e98ea1827fe60636d0f7ce206397159a29fc30613fae43e349e32c10ad3c0b7e0ed2ded2f3239e07bd5a3cba8736b6114ba196acccc39905ca4a06f56a8d2841
   languageName: node
   linkType: hard
 
@@ -3571,9 +3571,9 @@ __metadata:
     "@tanstack/react-query-devtools": "npm:^4.14.5"
     "@types/google-map-react": "npm:^2.1.7"
     "@types/node": "npm:18.7.23"
-    "@types/react": "npm:18.0.21"
+    "@types/react": "npm:^18.2.47"
     "@types/react-calendar": "npm:^3.5.3"
-    "@types/react-dom": "npm:18.0.6"
+    "@types/react-dom": "npm:^18.2.18"
     "@types/react-modal": "npm:^3.13.1"
     "@types/react-phone-number-input": "npm:^3.0.14"
     "@typescript-eslint/eslint-plugin": "npm:^5.48.1"
