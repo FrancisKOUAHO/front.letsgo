@@ -20,6 +20,13 @@ const MyApp = ({Component, pageProps}: any) => {
     const route = useRouter();
     const AuthRequired = [
         '/account/profile',
+        '/search/[id]',
+        '/search/[id]/[filter]',
+        '/detail/[id]',
+        '/search/filterActivity',
+        '/conditions-generales',
+        '/politique-de-confidentialite',
+        '/reset-password',
         '/booking',
         '/success/',
     ];

@@ -16,7 +16,6 @@ const Id: FunctionComponent<any> = () => {
   return (
     <Custom title={'search'}>
       <>
-        {/*<NavMenuFilter />*/}
         <div className="flex flex-row flex-wrap justify-between gap-5">
           {SearchActivity &&
             SearchActivity.data?.map((activity: any, index: number) => {
