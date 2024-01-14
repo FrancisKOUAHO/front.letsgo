@@ -1,5 +1,3 @@
-import MethodePaymentPaypal from '../ui/MethodePaymentPaypal';
-
 const BookingPayment = () => {
   return (
     <div className="w-full h-full">
@@ -15,7 +13,7 @@ const BookingPayment = () => {
       </p>
 
       <h2 className="mt-10 text-[19px]">Sélectionnez un mode de paiement</h2>
-      <MethodePaymentPaypal />
+      {/*<MethodePaymentPaypal />*/}
     </div>
   );
 };

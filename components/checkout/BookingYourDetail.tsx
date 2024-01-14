@@ -2,36 +2,34 @@ import InputLabel from '../ui/InputLabel';
 import Button from "../ui/Button";
 import Phone from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
-import { useAuth } from "../../context/AuthContext";
 
 const BookingYourDetail = (props: any) => {
-  const {user} = useAuth();
-  const [firstName, lastName] = user?.full_name.split(' ')
+
   return (
     <form onSubmit={props.handleSendCustomer}>
-      <fieldset disabled className="flex flex-wrap gap-x-4">
+      <fieldset className="flex flex-wrap gap-x-4">
         <InputLabel
           label={'Prénom'}
           type={'text'}
           name={'firstName'}
           error={'Veuillez remplir ce champ.'}
-          placeholder={firstName}
+          placeholder="Saisissez votre prénom"
         />
         <InputLabel
           label={'Nom de famille'}
           type={'text'}
           name={'lastName'}
           error={'Veuillez remplir ce champ.'}
-          placeholder={lastName}
+          placeholder="Saisissez votre nom de famille"
         />
       </fieldset>
-      <fieldset disabled>
+      <fieldset>
         <InputLabel
           label={'Adresse électronique'}
           type={'email'}
           name={'email'}
           error={'Veuillez remplir ce champ.'}
-          placeholder={user?.email}
+          placeholder="Saisissez votre adresse électronique"
         />
       </fieldset>
 
@@ -39,7 +37,7 @@ const BookingYourDetail = (props: any) => {
         country={'fr'}
         disabled={false}
         containerClass={'c-phone-input'}
-        placeholder={user?.phone}
+        placeholder="Numéro de téléphone"
         inputProps={{
           name: 'phone',
         }}

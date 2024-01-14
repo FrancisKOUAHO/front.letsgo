@@ -244,20 +244,13 @@ const Index: FunctionComponent<any> = () => {
                                                 <div className='c-ticket-card__reservation'>
                                                     <span
                                                         className='c-ticket-card__reservation__price'>{data.price + '€'}</span>
-                                                    {
-                                                        user ? (
-                                                            <Button color={'primary'} isActive={true} onClick={() => {
-                                                                let convertTimestamp = new Date(selectedDate);
-                                                                let date = `${convertTimestamp.getMonth() + 1}-${convertTimestamp.getDate()}-${convertTimestamp.getFullYear()}`
-                                                                router.push(`/checkout/${data.id}?date=${date}`)
-                                                            }}>
-                                                                Réserver
-                                                            </Button>
-                                                        ) : (<Button color="primary" isActive={true} onClick={openModal}>
-                                                            Réserver
-                                                        </Button>)
-                                                    }
-
+                                                    <Button color={'primary'} isActive={true} onClick={() => {
+                                                        let convertTimestamp = new Date(selectedDate);
+                                                        let date = `${convertTimestamp.getMonth() + 1}-${convertTimestamp.getDate()}-${convertTimestamp.getFullYear()}`
+                                                        router.push(`/checkout/${data.id}?date=${date}`)
+                                                    }}>
+                                                        Réserver
+                                                    </Button>
                                                 </div>
                                             </div>
                                         </div>

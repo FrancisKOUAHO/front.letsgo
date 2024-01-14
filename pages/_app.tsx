@@ -18,18 +18,7 @@ import PlausibleProvider from 'next-plausible'
 
 const MyApp = ({Component, pageProps}: any) => {
     const route = useRouter();
-    const AuthRequired = [
-        '/account/profile',
-        '/search/[id]',
-        '/search/[id]/[filter]',
-        '/detail/[id]',
-        '/search/filterActivity',
-        '/conditions-generales',
-        '/politique-de-confidentialite',
-        '/reset-password',
-        '/booking',
-        '/success/',
-    ];
+    const AuthRequired = ['/account/profile'];
 
     const [queryClient] = useState(() => new QueryClient(
         {
@@ -49,7 +38,7 @@ const MyApp = ({Component, pageProps}: any) => {
                 <QueryClientProvider client={queryClient}>
                     <Elements stripe={STRIPE_TEST_PROMISE}>
                         <Hydrate state={pageProps}>
-                            {AuthRequired.includes(route.pathname) ? (
+                            {!AuthRequired.includes(route.pathname) ? (
                                 <Component {...pageProps} />
                             ) : (
                                 <ProtectedRoute>

@@ -49,34 +49,26 @@ const Checkout = () => {
     const formData = new FormData(e.target);
     const dataForm = Object.fromEntries(formData.entries());
 
-    const response = await api.put(`auth/updateUser/${user.id}`, {
-      phone: dataForm.phone,
-      role: 'guest'
-    });
-
-    if (response.status === 200) {
       const reservation = await api.post('reservations/create_reservation', {
-        user_id: user.id,
-        activity_id: activityId,
-        organisator_id: data.organisator_id,
-        status: 'pending',
-        number_of_places: selectedOption.value,
-        time_of_session: selected,
-        date_of_session: date,
-        total_price: price,
+          full_name: dataForm.firstName + ' ' + dataForm.lastName,
+          email: dataForm.email,
+          phone: dataForm.phone,
+          activity_id: activityId,
+          organisator_id: data.organisator_id ? data.organisator_id : null,
+          status: 'pending',
+          number_of_places: selectedOption.value,
+          time_of_session: selected,
+          date_of_session: date,
+          total_price: price,
       })
 
       if (reservation.status === 200) {
-        setReservation(reservation.data);
-        setStep(3);
+          setReservation(reservation.data);
+          setStep(3);
       } else {
-        setMessage('Une erreur est survenue');
-        setError(true);
+          setMessage('Une erreur est survenue');
+          setError(true);
       }
-    } else {
-      setError(true);
-      setMessage(response.data.message);
-    }
   }
 
   const handlePayment = async (event: { preventDefault: () => void; }) => {
@@ -95,27 +87,28 @@ const Checkout = () => {
           type: 'card',
           card: cardElement,
           billing_details: {
-            name: user.full_name,
-            email: user.email,
-            phone: user.phone,
+            name: bookingDetail.firstName + ' ' + bookingDetail.lastName,
+            email: bookingDetail.email,
+            phone: bookingDetail.phone,
           }
         });
 
         if (!error) {
           const {id} = paymentMethod;
           const response = await api.post('payments/create_payment', {
-            user_id: user.id,
+            payment_method_id: id,
             reservation_id: reservation.reservation.id,
-            TokenIdStripe: id,
             amount: price,
-            activity_id: activityId,
+            currency: 'eur',
+            description: 'Paiement de la réservation',
+            customer_id: user.id ? user.id : null,
           })
 
           if (response.status === 200) {
             setSuccess(true);
             setLoadingStripe(false);
             setLoading(false);
-            await router.push(`/success/A=${id}R=${reservation.reservation.id}C=${user.id}`)
+            await router.push(`/success/A=${id}R=${reservation.reservation.id}C=${user.id ? user.id : null}`)
             toast('Votre paiement a été effectué avec succès', {
               position: toast.POSITION.BOTTOM_CENTER,
               type: 'success'
@@ -322,7 +315,7 @@ const Checkout = () => {
               </div>
             )
           }
-          <MethodePaymentPaypal/>
+          {/*<MethodePaymentPaypal/>*/}
         </div>);
       default:
         return 'Error';
