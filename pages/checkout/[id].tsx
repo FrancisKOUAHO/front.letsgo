@@ -2,7 +2,6 @@ import Layout from '../../layout/Layout';
 import React, {useEffect, useState} from 'react';
 import Button from '../../components/ui/Button';
 import BookingYourDetail from '../../components/checkout/BookingYourDetail';
-import MethodePaymentPaypal from '../../components/ui/MethodePaymentPaypal';
 import {CardElement, useElements, useStripe} from '@stripe/react-stripe-js';
 import {Disclosure} from '@headlessui/react';
 import {useRouter} from "next/router";
@@ -315,7 +314,6 @@ const Checkout = () => {
               </div>
             )
           }
-          {/*<MethodePaymentPaypal/>*/}
         </div>);
       default:
         return 'Error';

@@ -32,7 +32,6 @@ const Index: FunctionComponent<any> = () => {
     const router = useRouter();
     const {id} = router.query
 
-    const {user} = useAuth();
 
     const [selectedDays, setSelectedDays] = useState<DayProps[]>([]);
     const [selectedDate, setSelectedDate] = useState<number>(
