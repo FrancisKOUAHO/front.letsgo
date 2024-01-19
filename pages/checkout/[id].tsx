@@ -48,7 +48,7 @@ const Checkout = () => {
         const formData = new FormData(e.target);
         const dataForm = Object.fromEntries(formData.entries());
 
-        const reservation = await api.post('reservations/create_reservation', {
+        const requestBody = {
             full_name: dataForm.firstName + ' ' + dataForm.lastName,
             email: dataForm.email,
             phone: dataForm.phone,
@@ -58,8 +58,11 @@ const Checkout = () => {
             status: 'pending',
             date_of_session: date,
             total_price: price,
-        })
+            user_id: user ? user.id : null,
+            organisator_id: ''
+        };
 
+        const reservation = await api.post('reservations/create_reservation', requestBody)
 
         if (reservation.status === 200) {
             setReservation(reservation.data);
@@ -86,28 +89,27 @@ const Checkout = () => {
                     type: 'card',
                     card: cardElement,
                     billing_details: {
-                        name: bookingDetail.firstName + ' ' + bookingDetail.lastName,
-                        email: bookingDetail.email,
-                        phone: bookingDetail.phone,
+                        name: reservation.full_name,
+                        email: reservation.email,
+                        phone: reservation.phone,
                     }
                 });
 
                 if (!error) {
                     const {id} = paymentMethod;
+
                     const response = await api.post('payments/create_payment', {
-                        payment_method_id: id,
+                        TokenIdStripe: id,
                         reservation_id: reservation.reservation.id,
                         amount: price,
-                        currency: 'eur',
-                        description: 'Paiement de la réservation',
-                        customer_id: user.id ? user.id : null,
-                    })
+                        user_id: user ? user.id : null
+                    });
 
                     if (response.status === 200) {
                         setSuccess(true);
                         setLoadingStripe(false);
                         setLoading(false);
-                        await router.push(`/success/A=${id}R=${reservation.reservation.id}C=${user.id ? user.id : null}`)
+                        await router.push(`/success/A=${id}R=${reservation.reservation.id}C=${user ? user.id : null}`)
                         toast('Votre paiement a été effectué avec succès', {
                             position: toast.POSITION.BOTTOM_CENTER,
                             type: 'success'
