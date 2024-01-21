@@ -30,7 +30,6 @@ const NavBar: FunctionComponent = () => {
                 <Dropdown
                     list={[
                         {label: 'Réservations', link: '/booking'},
-                        {label: 'Historique', link: '/customer-history'},
                         {label: 'Paramètres', link: '/account/profile'},
                         {label: 'Déconnexion', onclick: logout},
                     ]}

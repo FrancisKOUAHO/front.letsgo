@@ -18,7 +18,7 @@ import PlausibleProvider from 'next-plausible'
 
 const MyApp = ({Component, pageProps}: any) => {
     const route = useRouter();
-    const AuthRequired = ['/account/profile'];
+    const AuthRequired = [''];
 
     const [queryClient] = useState(() => new QueryClient(
         {

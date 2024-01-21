@@ -3,7 +3,6 @@ import { Fragment, FunctionComponent, useState } from 'react';
 import Input from '../ui/Input';
 import Button from '../ui/Button';
 import { useAuth } from '../../context/AuthContext';
-import { useRouter } from 'next/router';
 import clsx from 'clsx'
 import { GrFormClose } from "react-icons/gr";
 import Link from "next/link";
@@ -24,7 +23,7 @@ const Login: FunctionComponent<any> = ({ isOpen, closeModal }) => {
         event.preventDefault();
         const form = event.currentTarget;
         const values = Object.fromEntries(new FormData(form));
-        register(values.email, values.password);
+        register(values.email, values.password, values.name);
         closeModal();
     };
 
@@ -167,7 +166,7 @@ const Login: FunctionComponent<any> = ({ isOpen, closeModal }) => {
                   </form>
                 )}
 
-                <div className="c-or-continue mt-4 text-[12px] flex items-center text-[#9A9A9A]">
+               {/* <div className="c-or-continue mt-4 text-[12px] flex items-center text-[#9A9A9A]">
                   <hr className="w-[35px]" />
                   <h6 className="sm:text-[11]">&nbsp; Ou continuer avec &nbsp;</h6>
                   <hr className="w-[65%]" />
@@ -210,7 +209,7 @@ const Login: FunctionComponent<any> = ({ isOpen, closeModal }) => {
                     <i className="ri-google-fill ri-xl mr-2" />
                     Google
                   </Button>
-                </div>
+                </div>*/}
               </Dialog.Panel>
             </Transition.Child>
           </div>
