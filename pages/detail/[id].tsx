@@ -11,7 +11,6 @@ import {useReviewId} from '../../hooks';
 import LoadingSpinner from '../../components/ui/LoadingSpinner'
 import Layout from '../../layout/Layout';
 import {api, baseUrl} from "../../config/api";
-import {useAuth} from "../../context/AuthContext";
 import Login from "../../components/form/Login";
 import ReviewAvatar from '../../components/ui/ReviewAvatar';
 import ReviewCard from "../../components/ui/ReviewCard";
@@ -82,7 +81,7 @@ const Index: FunctionComponent<any> = () => {
         if (!!id) {
             api.get(`activities/get_activity/${id}`).then((res) => {
                 setData(res.data);
-                res.data.schedule.dates.map((day: any) => {
+                res.data.activity.schedule.dates.map((day: any) => {
                     availableDays.push(day.date);
                 });
             }).catch((err) => {
@@ -122,34 +121,34 @@ const Index: FunctionComponent<any> = () => {
                                     <div className="row-span-3 col-span-2">
                                         <EventCard
                                             isLiked={false}
-                                            name={data.name}
-                                            description={data.description ? data.description : ''}
-                                            image={data.image}
-                                            logo={data.image}
-                                            key={data.id}
-                                            price={data.price}
+                                            name={data.activity.name}
+                                            description={data.activity.description ? data.activity.description : ''}
+                                            image={data.activity.image}
+                                            logo={data.activity.image}
+                                            key={data.activity.id}
+                                            price={data.prices[0].price}
                                         />
                                     </div>
                                     <div className="h-[260px]">
                                         <EventCard
                                             isLiked={false}
-                                            name={data.name}
-                                            description={data.description ? data.description : ''}
-                                            image={data.image}
-                                            logo={data.image}
-                                            key={data.id}
-                                            price={data.price}
+                                            name={data.activity.name}
+                                            description={data.activity.description ? data.description : ''}
+                                            image={data.activity.image}
+                                            logo={data.activity.image}
+                                            key={data.activity.id}
+                                            price={data.prices[0].price}
                                         />
                                     </div>
                                     <div className="h-[260px] mt-1">
                                         <EventCard
                                             isLiked={false}
-                                            name={data.name}
-                                            description={data.description ? data.description : ''}
-                                            image={data.image}
-                                            logo={data.image}
-                                            key={data.id}
-                                            price={data.price}
+                                            name={data.activity.name}
+                                            description={data.activity.description ? data.description : ''}
+                                            image={data.activity.image}
+                                            logo={data.activity.image}
+                                            key={data.activity.id}
+                                            price={data.prices[0].price}
                                         />
                                     </div>
                                 </div>
@@ -158,8 +157,8 @@ const Index: FunctionComponent<any> = () => {
                                 <div className='max-w-4xl'>
                                     <div className="flex flex-col sm:flex-row gap-4">
                                         <div className="flex-1">
-                                            <h1>{data.name}</h1>
-                                            <p className="u-medium-grey-text">{data.description}</p>
+                                            <h1>{data.activity.name}</h1>
+                                            <p className="u-medium-grey-text">{data.activity.description}</p>
                                         </div>
                                         <div className="flex gap-x-2">
                                             <button onClick={toggleLike}>
@@ -218,10 +217,10 @@ const Index: FunctionComponent<any> = () => {
                                         <div className='c-ticket-card mt-8'>
                                             <img
                                                 className='c-ticket-card__image'
-                                                src={data.image}
-                                                alt={data.name}
+                                                src={data.activity.image}
+                                                alt={data.activity.name}
                                                 onError={(e: any) => {
-                                                    e.target.src = `${baseUrl}${data.image}`;
+                                                    e.target.src = `${baseUrl}${data.activity.image}`;
                                                 }}
                                             />
                                             <div className='c-ticket-card__content'>
@@ -238,15 +237,15 @@ const Index: FunctionComponent<any> = () => {
                                                         <span className='c-ticket-card__avis__note'>3.75 / 5</span>
                                                     </div>
                                                 </div>
-                                                <h3 className='c-ticket-card__title'>{data.name}</h3>
-                                                <p className='c-ticket-card__description'>{data.description}</p>
+                                                <h3 className='c-ticket-card__title'>{data.activity.name}</h3>
+                                                <p className='c-ticket-card__description'>{data.activity.description}</p>
                                                 <div className='c-ticket-card__reservation'>
                                                     <span
-                                                        className='c-ticket-card__reservation__price'>{data.price + '€'}</span>
+                                                        className='c-ticket-card__reservation__price'>{data.prices[0].price + '€'}</span>
                                                     <Button color={'primary'} isActive={true} onClick={() => {
                                                         let convertTimestamp = new Date(selectedDate);
                                                         let date = `${convertTimestamp.getMonth() + 1}-${convertTimestamp.getDate()}-${convertTimestamp.getFullYear()}`
-                                                        router.push(`/checkout/${data.id}?date=${date}`)
+                                                        router.push(`/checkout/${data.activity.id}?date=${date}`)
                                                     }}>
                                                         Réserver
                                                     </Button>
@@ -282,26 +281,26 @@ const Index: FunctionComponent<any> = () => {
                                 <div className='max-w-4xl'>
                                     <h1>Détails de l'événement</h1>
                                     <p className="mt-6">
-                                        {data.description}
+                                        {data.activity.description}
                                     </p>
                                     <p className="mt-4">
-                                        {data.programme}
+                                        {data.activity.programme}
                                     </p>
                                     <p className="mt-4">
-                                        {data.practical_information}
+                                        {data.activity.practical_information}
                                     </p>
                                     <div className='mt-4' style={{height: '426px', width: '100%'}}>
                                         <GoogleMapReact
                                             bootstrapURLKeys={{key: 'AIzaSyDNq5N5k_7ooYaHhKK3eKjVuYZGDpoTUo8'}}
                                             defaultCenter={{
-                                                lat: data.latitude,
-                                                lng: data.longitude,
+                                                lat: data.activity.latitude,
+                                                lng: data.activity.longitude,
                                             }}
                                             defaultZoom={15}
                                         >
                                             <AnyReactComponent
-                                                lat={data.latitude}
-                                                lng={data.longitude}
+                                                lat={data.activity.latitude}
+                                                lng={data.activity.longitude}
                                                 text="/marker.png"
                                             />
                                         </GoogleMapReact>

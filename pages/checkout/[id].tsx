@@ -1,28 +1,27 @@
 import Layout from '../../layout/Layout';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '../../components/ui/Button';
 import BookingYourDetail from '../../components/checkout/BookingYourDetail';
-import {CardElement, useElements, useStripe} from '@stripe/react-stripe-js';
-import {Disclosure} from '@headlessui/react';
-import {useRouter} from "next/router";
-import {getDateLong} from "../../utils/dates";
+import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import { Disclosure } from '@headlessui/react';
+import { useRouter } from "next/router";
+import { getDateLong } from "../../utils/dates";
 import Select from "react-select";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
-import {api} from '../../config/api';
-import {useAuth} from '../../context/AuthContext';
-import {toast, ToastContainer} from 'react-toastify';
+import { api } from '../../config/api';
+import { useAuth } from '../../context/AuthContext';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Checkout = () => {
     const stripe = useStripe();
     const elements = useElements();
     const router = useRouter();
-    const {id, date} = router.query;
-    const {user} = useAuth();
+    const { id, date } = router.query;
+    const { user } = useAuth();
 
     const [step, setStep] = useState(1);
     const [selected, setSelected] = useState(false);
-    const [selectedOption, setSelectedOption] = useState<any>(0);
     const [arrayOfHour, setArrayOfHour] = useState<any>([])
     const [bookingDetail, setBookingDetail] = useState<any>(null);
     const [reservation, setReservation] = useState<any>(null);
@@ -33,15 +32,31 @@ const Checkout = () => {
     const [message, setMessage] = useState('');
     const [data, setData] = useState<any>(null);
     const [activityId, setActivityId] = useState<any>(null);
-
+    const [selectedOptions, setSelectedOptions] = useState<any>([]);
     let getDate = getDateLong(date).toDateString();
     let dateR = getDate.split(' ');
 
     const options = [
-        {value: '1', label: '1'},
+        { value: 0, label: '0' },
+        { value: 1, label: '1' },
     ]
 
-    let price = `${selectedOption && selectedOption.value * Number(data.price.replace('&nbsp;', '').replace('€', ''))}`
+    const handleOptionChange = (index: number, value: any) => {
+        setSelectedOptions((prevState: any) => [
+            ...prevState.slice(0, index),
+            value,
+            ...prevState.slice(index + 1),
+        ]);
+    };
+
+    const price = data && data.prices.reduce((acc: any, price: any, index: number) => {
+        const option = selectedOptions[index];
+        if (option && option.value) {
+            return acc + price.price * option.value;
+        } else {
+            return acc;
+        }
+    }, 0);
 
     const handleSendCustomer = async (e: any) => {
         e.preventDefault();
@@ -53,7 +68,7 @@ const Checkout = () => {
             email: dataForm.email,
             phone: dataForm.phone,
             activity_id: activityId,
-            number_of_places: selectedOption.value,
+            number_of_places: selectedOptions[0].value,
             time_of_session: selected,
             status: 'pending',
             date_of_session: date,
@@ -62,12 +77,17 @@ const Checkout = () => {
             organisator_id: ''
         };
 
-        const reservation = await api.post('reservations/create_reservation', requestBody)
+        try {
+            const reservation = await api.post('reservations/create_reservation', requestBody);
 
-        if (reservation.status === 200) {
-            setReservation(reservation.data);
-            setStep(3);
-        } else {
+            if (reservation.status === 200) {
+                setReservation(reservation.data);
+                setStep(3);
+            } else {
+                setMessage('Une erreur est survenue');
+                setError(true);
+            }
+        } catch (error) {
             setMessage('Une erreur est survenue');
             setError(true);
         }
@@ -85,7 +105,7 @@ const Checkout = () => {
             const cardElement = elements.getElement(CardElement);
 
             if (cardElement) {
-                const {error, paymentMethod} = await stripe.createPaymentMethod({
+                const { error, paymentMethod } = await stripe.createPaymentMethod({
                     type: 'card',
                     card: cardElement,
                     billing_details: {
@@ -96,7 +116,7 @@ const Checkout = () => {
                 });
 
                 if (!error) {
-                    const {id} = paymentMethod;
+                    const { id } = paymentMethod;
 
                     const response = await api.post('payments/create_payment', {
                         TokenIdStripe: id,
@@ -109,7 +129,7 @@ const Checkout = () => {
                         setSuccess(true);
                         setLoadingStripe(false);
                         setLoading(false);
-                        await router.push(`/success/A=${id}R=${reservation.reservation.id}C=${user ? user.id : null}`)
+                        await router.push(`/success/A=${id}R=${reservation.reservation.id}C=${user ? user.id : null}`);
                         toast('Votre paiement a été effectué avec succès', {
                             position: toast.POSITION.BOTTOM_CENTER,
                             type: 'success'
@@ -123,7 +143,6 @@ const Checkout = () => {
                         setLoadingStripe(false);
                         setLoading(false);
                     }
-
                 } else {
                     setError(true);
                     toast('Désolé, votre paiement n\'a pas pu être traité pour le moment. Veuillez vérifier les détails de votre carte et réessayer ultérieurement.', {
@@ -134,8 +153,7 @@ const Checkout = () => {
                     setLoading(false);
                 }
             }
-
-        } catch (e: any) {
+        } catch (error) {
             setError(true);
             toast('Désolé, votre paiement n\'a pas pu être traité pour le moment. Veuillez vérifier les détails de votre carte et réessayer ultérieurement.', {
                 position: toast.POSITION.BOTTOM_CENTER,
@@ -181,13 +199,14 @@ const Checkout = () => {
 
     useEffect(() => {
         if (data && date) {
-            let filterHours = data.schedule.dates.filter((item: any) => item.date === date);
+            let filterHours = data.activity.schedule.dates.filter((item: any) => item.date === date);
             if (filterHours) {
                 setArrayOfHour(filterHours[0].hours)
             }
         }
     }, [date, data])
 
+    console.log('data', data)
 
     const switchToCheckout = (arg: number) => {
         switch (arg) {
@@ -200,15 +219,15 @@ const Checkout = () => {
                                     <div className="o-box">
                                         <div className="flex gap-2 justify-between">
                                             <h1 className="text-[17px]">
-                                                {data.name}
+                                                {data.activity.name}
                                             </h1>
                                             <img
                                                 className={`h-auto w-[100px] object-cover rounded-lg`}
-                                                src={data.image}
+                                                src={data.activity.image}
                                                 alt=""
                                             />
                                         </div>
-                                        <p className="text-[16px]">Paris, France</p>
+                                        <p className="text-[16px]">{data.activity.address}</p>
                                     </div>
                                     <h2 className="text-[22px] mt-6">Quelle heure ?</h2>
                                     <div className='max-w-md'>
@@ -237,18 +256,24 @@ const Checkout = () => {
                                     </div>
                                     <h2 className="text-[22px] mt-6">Sélectionnez vos billets</h2>
                                     <div className="o-box mt-4">
-                                        <div className="flex items-center justify-between">
-                                            <div className="flex flex-col">
-                                                <span className='font-semibold'>Adulte(s) (18+) </span>
-                                                <span className='mt-1'>{data.price + '€'}</span>
-                                            </div>
-                                            <div>
-                                                <Select
-                                                    defaultValue={selectedOption}
-                                                    onChange={setSelectedOption}
-                                                    options={options}
-                                                />
-                                            </div>
+                                        <div className="flex flex-col justify-between">
+                                            {data &&
+                                                data.prices.map((price: any, index: number) => (
+                                                    <div className="flex justify-between mt-6" key={index}>
+                                                        <div className="flex flex-col mt-2">
+                                                            <span className="font-semibold">{price.name} </span>
+                                                            <span className="mt-4">{price.price + '€'}</span>
+                                                            <span className="mt-4 text-red-400 text-xs">Plus que {price.quantity} disponibles!</span>
+                                                        </div>
+                                                        <div>
+                                                            <Select
+                                                                options={options}
+                                                                onChange={(e) => handleOptionChange(index, e)}
+                                                                value={selectedOptions[index]}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                ))}
                                         </div>
                                     </div>
                                 </>
@@ -279,10 +304,10 @@ const Checkout = () => {
                             <div className="w-full mt-4">
                                 <div
                                     className="w-full max-w-md rounded-2xl bg-white p-2 "
-                                    style={{border: '1px solid #4376FF'}}
+                                    style={{ border: '1px solid #4376FF' }}
                                 >
                                     <Disclosure>
-                                        {({open}) => (
+                                        {({ open }) => (
                                             <>
                                                 <Disclosure.Button className="flex flex-col w-full">
                                                     <div
@@ -326,7 +351,6 @@ const Checkout = () => {
         }
     };
 
-
     return (
         <Layout title="Checkout">
             <>
@@ -363,11 +387,10 @@ const Checkout = () => {
                                     <div className='sticky top-0'>
                                         <div className='c-details o-box mt-4'>
                                             <div className='flex items-start gap-x-4'>
-                                                <p className='flex-1 mb-4'>Louvre Museum: Skip The Line + Guided Tour in
-                                                    English</p>
+                                                <p className='flex-1 mb-4'>{data.activity.name}</p>
                                                 <img className='c-details__pic w-full h-full object-cover rounded-lg'
-                                                     src={data.image}
-                                                     alt=""/>
+                                                     src={data.activity.image}
+                                                     alt="" />
                                             </div>
                                             <div className="flex items-center mt-2">
                                                 <i className="ri-calendar-2-line ri-l"/>
