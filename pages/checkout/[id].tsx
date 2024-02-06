@@ -281,21 +281,22 @@ const Checkout = () => {
                                         <div className="flex flex-col justify-between">
                                             {data &&
                                                 data.prices.map((price: any, index: number) => (
-                                                    <div className="flex justify-between mt-6" key={index}>
-                                                        <div className="flex flex-col mt-2">
-                                                            <span className="font-semibold">{price.name} </span>
-                                                            <span className="mt-4">{price.price + '€'}</span>
-                                                            <span
-                                                                className="mt-4 text-red-400 text-xs">Plus que {price.quantity} disponibles!</span>
-                                                        </div>
-                                                        <div>
-                                                            <Select
-                                                                options={options}
-                                                                onChange={(e) => handleOptionChange(index, e)}
-                                                                value={selectedOptions[index]}
-                                                            />
-                                                        </div>
-                                                    </div>
+                                                    price.quantity >= 0 && (
+                                                        <div className="flex justify-between mt-6" key={index}>
+                                                            <div className="flex flex-col mt-2">
+                                                                <span className="font-semibold">{price.name} </span>
+                                                                <span className="mt-4">{price.price + '€'}</span>
+                                                                <span
+                                                                    className="mt-4 text-red-400 text-xs">Plus que {price.quantity} disponibles!</span>
+                                                            </div>
+                                                            <div>
+                                                                <Select
+                                                                    options={options}
+                                                                    onChange={(e) => handleOptionChange(index, e)}
+                                                                    value={selectedOptions[index]}
+                                                                />
+                                                            </div>
+                                                        </div>)
                                                 ))}
                                         </div>
                                     </div>
