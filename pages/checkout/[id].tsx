@@ -1,24 +1,26 @@
 import Layout from '../../layout/Layout';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Button from '../../components/ui/Button';
 import BookingYourDetail from '../../components/checkout/BookingYourDetail';
-import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import { Disclosure } from '@headlessui/react';
-import { useRouter } from "next/router";
-import { getDateLong } from "../../utils/dates";
+import {CardElement, useElements, useStripe} from '@stripe/react-stripe-js';
+import {Disclosure} from '@headlessui/react';
+import {useRouter} from "next/router";
+import {getDateLong} from "../../utils/dates";
 import Select from "react-select";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
-import { api } from '../../config/api';
-import { useAuth } from '../../context/AuthContext';
-import { toast, ToastContainer } from 'react-toastify';
+import {api} from '../../config/api';
+import {useAuth} from '../../context/AuthContext';
+import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import moment from 'moment';
+import 'moment/locale/fr';
 
 const Checkout = () => {
     const stripe = useStripe();
     const elements = useElements();
     const router = useRouter();
-    const { id, date } = router.query;
-    const { user } = useAuth();
+    const {id, date} = router.query;
+    const {user} = useAuth();
 
     const [step, setStep] = useState(1);
     const [selected, setSelected] = useState(false);
@@ -33,12 +35,15 @@ const Checkout = () => {
     const [data, setData] = useState<any>(null);
     const [activityId, setActivityId] = useState<any>(null);
     const [selectedOptions, setSelectedOptions] = useState<any>([]);
+    const [timeLeft, setTimeLeft] = useState('');
+
+
     let getDate = getDateLong(date).toDateString();
     let dateR = getDate.split(' ');
 
     const options = [
-        { value: 0, label: '0' },
-        { value: 1, label: '1' },
+        {value: 0, label: '0'},
+        {value: 1, label: '1'},
     ]
 
     const handleOptionChange = (index: number, value: any) => {
@@ -68,11 +73,11 @@ const Checkout = () => {
             email: dataForm.email,
             phone: dataForm.phone,
             activity_id: activityId,
-            number_of_places: selectedOptions[0].value,
+            number_of_places: selectedOptions[0].value.toString(),
             time_of_session: selected,
             status: 'pending',
             date_of_session: date,
-            total_price: price,
+            total_price: price.toString(),
             user_id: user ? user.id : null,
             organisator_id: ''
         };
@@ -105,7 +110,7 @@ const Checkout = () => {
             const cardElement = elements.getElement(CardElement);
 
             if (cardElement) {
-                const { error, paymentMethod } = await stripe.createPaymentMethod({
+                const {error, paymentMethod} = await stripe.createPaymentMethod({
                     type: 'card',
                     card: cardElement,
                     billing_details: {
@@ -116,7 +121,7 @@ const Checkout = () => {
                 });
 
                 if (!error) {
-                    const { id } = paymentMethod;
+                    const {id} = paymentMethod;
 
                     const response = await api.post('payments/create_payment', {
                         TokenIdStripe: id,
@@ -206,7 +211,24 @@ const Checkout = () => {
         }
     }, [date, data])
 
-    console.log('data', data)
+    useEffect(() => {
+        const deadline = moment().add(1, 'hour');
+
+        const interval = setInterval(() => {
+            const duration = moment.duration(deadline.diff(moment()));
+
+            const formattedTimeLeft = moment.utc(duration.asMilliseconds()).format('HH:mm:ss');
+
+            setTimeLeft(formattedTimeLeft);
+
+            if (duration.asMilliseconds() <= 0) {
+                clearInterval(interval);
+                setTimeLeft('Le délai est expiré');
+            }
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
 
     const switchToCheckout = (arg: number) => {
         switch (arg) {
@@ -263,7 +285,8 @@ const Checkout = () => {
                                                         <div className="flex flex-col mt-2">
                                                             <span className="font-semibold">{price.name} </span>
                                                             <span className="mt-4">{price.price + '€'}</span>
-                                                            <span className="mt-4 text-red-400 text-xs">Plus que {price.quantity} disponibles!</span>
+                                                            <span
+                                                                className="mt-4 text-red-400 text-xs">Plus que {price.quantity} disponibles!</span>
                                                         </div>
                                                         <div>
                                                             <Select
@@ -294,7 +317,7 @@ const Checkout = () => {
                     </p>
 
                     <p className="mt-4 text-[16px]">
-                        Time left to complete your payment: <span>26 minutes</span>
+                        Temps restant pour effectuer votre paiement : <span>{timeLeft}</span>
                     </p>
 
                     <h2 className="mt-10 text-[19px]">Sélectionnez un mode de paiement</h2>
@@ -304,10 +327,10 @@ const Checkout = () => {
                             <div className="w-full mt-4">
                                 <div
                                     className="w-full max-w-md rounded-2xl bg-white p-2 "
-                                    style={{ border: '1px solid #4376FF' }}
+                                    style={{border: '1px solid #4376FF'}}
                                 >
                                     <Disclosure>
-                                        {({ open }) => (
+                                        {({open}) => (
                                             <>
                                                 <Disclosure.Button className="flex flex-col w-full">
                                                     <div
@@ -390,7 +413,7 @@ const Checkout = () => {
                                                 <p className='flex-1 mb-4'>{data.activity.name}</p>
                                                 <img className='c-details__pic w-full h-full object-cover rounded-lg'
                                                      src={data.activity.image}
-                                                     alt="" />
+                                                     alt=""/>
                                             </div>
                                             <div className="flex items-center mt-2">
                                                 <i className="ri-calendar-2-line ri-l"/>
