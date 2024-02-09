@@ -307,7 +307,7 @@ const Index: FunctionComponent<any> = () => {
                                     </div>
                                 </div>
                             </section>
-                            <section className='o-container o-container--margin'>
+                            {/*<section className='o-container o-container--margin'>
                                 <div className='max-w-4xl'>
                                     <h1>Avis récents</h1>
                                     <div className="o-container--margin">
@@ -365,7 +365,7 @@ const Index: FunctionComponent<any> = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </section>
+                            </section>*/}
                             <Login closeModal={closeModal} isOpen={isOpen}/>
                         </>
                     )

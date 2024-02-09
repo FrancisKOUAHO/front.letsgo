@@ -29,6 +29,8 @@ const Accueil: NextPage = () => {
     fetchOneActivity().then(r => r );
   }, []);
 
+    console.log(populars, 'populars')
+
   return (
     <Custom title={'Accueil'}>
       <>
